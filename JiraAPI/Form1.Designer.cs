@@ -41,11 +41,17 @@
             this.txtIssueKey = new System.Windows.Forms.TextBox();
             this.getWorklog = new System.Windows.Forms.Button();
             this.txtIssueID = new System.Windows.Forms.TextBox();
-            this.txtWorklogData = new System.Windows.Forms.TextBox();
             this.txtAddWorklog = new System.Windows.Forms.Button();
             this.txtWorklogID = new System.Windows.Forms.TextBox();
             this.cboProjects = new System.Windows.Forms.ComboBox();
             this.btnSelectProject = new System.Windows.Forms.Button();
+            this.lvIssues = new System.Windows.Forms.ListView();
+            this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.timeSpent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtTime = new System.Windows.Forms.TextBox();
+            this.timeOriginalEstimate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.rbHora = new System.Windows.Forms.RadioButton();
+            this.rbMediaHora = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // txtUsername
@@ -165,15 +171,6 @@
             this.txtIssueID.Size = new System.Drawing.Size(100, 20);
             this.txtIssueID.TabIndex = 13;
             // 
-            // txtWorklogData
-            // 
-            this.txtWorklogData.Location = new System.Drawing.Point(802, 12);
-            this.txtWorklogData.Multiline = true;
-            this.txtWorklogData.Name = "txtWorklogData";
-            this.txtWorklogData.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtWorklogData.Size = new System.Drawing.Size(457, 230);
-            this.txtWorklogData.TabIndex = 15;
-            // 
             // txtAddWorklog
             // 
             this.txtAddWorklog.Location = new System.Drawing.Point(1184, 248);
@@ -209,16 +206,76 @@
             this.btnSelectProject.UseVisualStyleBackColor = true;
             this.btnSelectProject.Click += new System.EventHandler(this.btnSelectProject_Click);
             // 
+            // lvIssues
+            // 
+            this.lvIssues.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.name,
+            this.timeSpent,
+            this.timeOriginalEstimate});
+            this.lvIssues.Location = new System.Drawing.Point(837, 13);
+            this.lvIssues.Name = "lvIssues";
+            this.lvIssues.Size = new System.Drawing.Size(422, 229);
+            this.lvIssues.TabIndex = 20;
+            this.lvIssues.UseCompatibleStateImageBehavior = false;
+            this.lvIssues.View = System.Windows.Forms.View.Details;
+            // 
+            // name
+            // 
+            this.name.Text = "Name";
+            // 
+            // timeSpent
+            // 
+            this.timeSpent.Text = "Time Spent";
+            // 
+            // txtTime
+            // 
+            this.txtTime.Enabled = false;
+            this.txtTime.Location = new System.Drawing.Point(1078, 250);
+            this.txtTime.Name = "txtTime";
+            this.txtTime.Size = new System.Drawing.Size(100, 20);
+            this.txtTime.TabIndex = 21;
+            // 
+            // timeOriginalEstimate
+            // 
+            this.timeOriginalEstimate.Text = "Time Original Estimate";
+            // 
+            // rbHora
+            // 
+            this.rbHora.AutoSize = true;
+            this.rbHora.Location = new System.Drawing.Point(1078, 277);
+            this.rbHora.Name = "rbHora";
+            this.rbHora.Size = new System.Drawing.Size(57, 17);
+            this.rbHora.TabIndex = 22;
+            this.rbHora.TabStop = true;
+            this.rbHora.Text = "1 Hora";
+            this.rbHora.UseVisualStyleBackColor = true;
+            this.rbHora.CheckedChanged += new System.EventHandler(this.rbHora_CheckedChanged);
+            // 
+            // rbMediaHora
+            // 
+            this.rbMediaHora.AutoSize = true;
+            this.rbMediaHora.Location = new System.Drawing.Point(1078, 301);
+            this.rbMediaHora.Name = "rbMediaHora";
+            this.rbMediaHora.Size = new System.Drawing.Size(68, 17);
+            this.rbMediaHora.TabIndex = 23;
+            this.rbMediaHora.TabStop = true;
+            this.rbMediaHora.Text = "1/2 Hora";
+            this.rbMediaHora.UseVisualStyleBackColor = true;
+            this.rbMediaHora.CheckedChanged += new System.EventHandler(this.rbMediaHora_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1271, 629);
+            this.Controls.Add(this.rbMediaHora);
+            this.Controls.Add(this.rbHora);
+            this.Controls.Add(this.txtTime);
+            this.Controls.Add(this.lvIssues);
             this.Controls.Add(this.btnSelectProject);
             this.Controls.Add(this.cboProjects);
             this.Controls.Add(this.txtWorklogID);
             this.Controls.Add(this.txtAddWorklog);
-            this.Controls.Add(this.txtWorklogData);
             this.Controls.Add(this.getWorklog);
             this.Controls.Add(this.txtIssueID);
             this.Controls.Add(this.btnGetIssue);
@@ -254,11 +311,17 @@
         private System.Windows.Forms.TextBox txtIssueKey;
         private System.Windows.Forms.Button getWorklog;
         private System.Windows.Forms.TextBox txtIssueID;
-        private System.Windows.Forms.TextBox txtWorklogData;
         private System.Windows.Forms.Button txtAddWorklog;
         private System.Windows.Forms.TextBox txtWorklogID;
         private System.Windows.Forms.ComboBox cboProjects;
         private System.Windows.Forms.Button btnSelectProject;
+        private System.Windows.Forms.ListView lvIssues;
+        private System.Windows.Forms.ColumnHeader name;
+        private System.Windows.Forms.ColumnHeader timeSpent;
+        private System.Windows.Forms.TextBox txtTime;
+        private System.Windows.Forms.ColumnHeader timeOriginalEstimate;
+        private System.Windows.Forms.RadioButton rbHora;
+        private System.Windows.Forms.RadioButton rbMediaHora;
     }
 }
 

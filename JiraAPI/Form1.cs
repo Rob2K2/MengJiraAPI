@@ -30,7 +30,7 @@ namespace JiraAPI
             var response = client.Execute(request);
 
             txtResponse.Text = response.Content;
-            
+
             //Guardamos el token generado en el login
             lblName.Text = response.Cookies[1].Name;
             txtValue.Text = response.Cookies[1].Value;
@@ -70,7 +70,6 @@ namespace JiraAPI
             cboProjects.DataSource = response.Data;
             cboProjects.DisplayMember = "name";
             cboProjects.ValueMember = "key";
-            
         }
 
         private void btnGetIssue_Click(object sender, EventArgs e)
@@ -97,9 +96,19 @@ namespace JiraAPI
 
         private void txtAddWorklog_Click(object sender, EventArgs e)
         {
+            string issueKey = lvIssues.SelectedItems[0].Text;
+            long timeSpent = long.Parse(lvIssues.SelectedItems[0].SubItems[1].Text);
+            long timeOriginalEstimate = long.Parse(lvIssues.SelectedItems[0].SubItems[2].Text);
+            long segundos = long.Parse(txtTime.Text);
+
+            if (segundos + timeSpent >= timeOriginalEstimate + timeOriginalEstimate * 0.1)
+            {
+                MessageBox.Show("El tiempo agregado supera el 10% del tiempo originalmente estimado");
+            }
+
             string fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff-0400");
-            string segundos = "3600";
-            var client = new RestClient("https://meng-mod-04.atlassian.net/rest/api/2/issue/" + txtIssueID.Text + "/worklog");
+
+            var client = new RestClient("https://meng-mod-04.atlassian.net/rest/api/2/issue/" + issueKey + "/worklog");
             var request = new RestRequest(Method.POST);
             request.AddCookie(lblName.Text, txtValue.Text);
             request.AddHeader("Content-Type", "application/json");
@@ -112,6 +121,7 @@ namespace JiraAPI
 
         private void btnSelectProject_Click(object sender, EventArgs e)
         {
+            lvIssues.Items.Clear();
             var client = new RestClient("https://meng-mod-04.atlassian.net/rest/api/2/search?jql=project=" + cboProjects.SelectedValue);
             var request = new RestRequest(Method.GET);
             request.AddCookie(lblName.Text, txtValue.Text);
@@ -119,6 +129,31 @@ namespace JiraAPI
             var response = client.Execute<List<IssuesList>>(request);
 
             txtResponse.Text = response.Content;
+
+            foreach (var issue in response.Data[0].Issues)
+            {
+                ListViewItem item = new ListViewItem();
+                item.Text = issue.Key;
+                item.SubItems.Add(issue.Fields.Timespent.ToString());
+                item.SubItems.Add(issue.Fields.Timeoriginalestimate.ToString());
+                lvIssues.Items.Add(item);
+            }
+        }
+
+        private void rbHora_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbHora.Checked == true)
+            {
+                txtTime.Text = "3600";
+            }
+        }
+
+        private void rbMediaHora_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbMediaHora.Checked == true)
+            {
+                txtTime.Text = "1800";
+            }
         }
     }
 }
